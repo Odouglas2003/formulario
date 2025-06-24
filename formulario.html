@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro Talleres Anuales 2025</title>
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f9f9f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
+    .container { max-width: 400px; width: 100%; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .logo { text-align: center; margin-bottom: 10px; }
+    .logo img { max-width: 120px; }
+    h2 { text-align: center; color: #E58B12; margin-bottom: 20px; }
+    label { display: block; margin-top: 12px; font-size: 14px; color: #333; }
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="email"],
+    select {
+      width: 100%; padding: 8px; margin-top: 4px;
+      border: 1px solid #ccc; border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%; padding: 12px;
+      background: #E58B12; color: #fff;
+      border: none; border-radius: 4px;
+      font-size: 16px; margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover { background: #c7760f; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <!-- Sustituí por tu logo -->
+      <img src="logo-placeholder.png" alt="Logo Talleres" />
+    </div>
+    <h2>Talleres Anuales 2025</h2>
+    <form id="contactForm">
+      <label for="dni">DNI:</label>
+      <input type="text" id="dni" required />
+
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" required />
+
+      <label for="nombres">Nombres:</label>
+      <input type="text" id="nombres" required />
+
+      <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+      <input type="date" id="fechaNacimiento" required />
+
+      <label for="edad">Edad:</label>
+      <input type="number" id="edad" min="1" required />
+
+      <label for="domicilio">Domicilio:</label>
+      <input type="text" id="domicilio" required />
+
+      <label for="nombreMama">Nombre de la Mamá:</label>
+      <input type="text" id="nombreMama" required />
+
+      <label for="telefonoMama">Teléfono de la Mamá:</label>
+      <input type="text" id="telefonoMama" required />
+
+      <label for="nombrePapa">Nombre del Papá:</label>
+      <input type="text" id="nombrePapa" required />
+
+      <label for="telefonoPapa">Teléfono del Papá:</label>
+      <input type="text" id="telefonoPapa" required />
+
+      <label for="taller">Taller:</label>
+      <select id="taller" required>
+        <option value="" disabled selected>Seleccione un taller</option>
+        <option value="Dibujo y Pintura">Dibujo y Pintura</option>
+        <option value="Dibujo Creativo">Dibujo Creativo</option>
+        <option value="Laboratorio Creativo">Laboratorio Creativo</option>
+        <option value="Cerámica">Cerámica</option>
+        <option value="Semillero">Semillero</option>
+        <option value="Arte+6">Arte+6</option>
+      </select>
+
+      <label for="diaHorario">Día y Horario:</label>
+      <select id="diaHorario" required>
+        <option value="" disabled selected>Seleccione día y horario</option>
+        <option value="Lunes 10–12">Lunes 10–12</option>
+        <option value="Miércoles 14–16">Miércoles 14–16</option>
+        <option value="Viernes 18–20">Viernes 18–20</option>
+      </select>
+
+      <label for="autorizacion">Autoriza uso de fotos:</label>
+      <select id="autorizacion" required>
+        <option value="" disabled selected>Seleccione</option>
+        <option value="Sí">Sí</option>
+        <option value="No">No</option>
+      </select>
+
+      <label for="email">Email de contacto:</label>
+      <input type="email" id="email" required />
+
+      <button type="submit">Enviar Solicitud</button>
+    </form>
+  </div>
+
+  <script>
+    const fieldMap = {
+      dni:             'DNI',
+      apellido:        'Apellido',
+      nombres:         'Nombres',
+      fechaNacimiento: 'Fecha de Nacimiento',
+      edad:            'Edad',
+      domicilio:       'Domicilio',
+      nombreMama:      'Nombre Mamá',
+      telefonoMama:    'Teléfono Mamá',
+      nombrePapa:      'Nombre Papá',
+      telefonoPapa:    'Teléfono Papá',
+      taller:          'Taller',
+      diaHorario:      'Día y Horario',
+      autorizacion:    'Autoriza uso de fotos',
+      email:           'Email de contacto'
+    };
+
+    document
+      .getElementById('contactForm')
+      .addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Tu número de WhatsApp: +54 9 351 221-6146 → 5493512216146
+        const whatsappNumber = '5493512216146';
+
+        let text = 'Nueva solicitud Talleres Anuales 2025:%0A';
+        for (let id in fieldMap) {
+          const val = document.getElementById(id).value.trim();
+          text += `${ fieldMap[id] }: ${ val }%0A`;
+        }
+
+        const url = `https://api.whatsapp.com/send?phone=${ whatsappNumber }&text=${ text }`;
+        window.open(url, '_blank');
+      });
+  </script>
+</body>
+</html>
