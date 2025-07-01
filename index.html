@@ -10,8 +10,9 @@
     .container { max-width: 400px; width: 100%; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     .logo { text-align: center; margin-bottom: 10px; }
     .logo img { max-width: 120px; }
-    h2 { text-align: center; color: #E58B12; margin-bottom: 20px; font-size: 18px; }
+    h2 { text-align: center; color: #e58b12; margin-bottom: 20px; font-size: 18px; }
     label { display: block; margin-top: 12px; font-size: 14px; color: #333; }
+    .checkbox-group label { display: block; margin-top: 4px; }
     input[type="text"],
     input[type="date"],
     input[type="number"],
@@ -23,18 +24,45 @@
     }
     button {
       width: 100%; padding: 12px;
-      background: #E58B12; color: #fff;
+      background: #e58b12; color: #fff;
       border: none; border-radius: 4px;
       font-size: 16px; margin-top: 20px;
       cursor: pointer;
     }
     button:hover { background: #c7760f; }
+
+    /* Modal styles */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal {
+      background: #fff; padding: 20px;
+      border-radius: 8px; max-width: 320px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .modal p {
+      margin: 0; font-size: 20px; color: #333; line-height: 1.4;
+    }
+    .modal button {
+      margin-top: 20px; padding: 10px 24px;
+      font-size: 16px; background: #e58b12;
+      color: #fff; border: none; border-radius: 4px;
+      cursor: pointer;
+    }
+    .modal button:hover { background: #c7760f; }
   </style>
 </head>
 <body>
+
   <div class="container">
     <div class="logo">
-      <!-- Sustituí por tu logo -->
       <img src="./LOGO_LA_YEMA .png" alt="Logo Talleres" />
     </div>
     <h2>TALLER ESPECIAL DE VACACIONES DE JULIO (de 6 a 10 años)</h2>
@@ -69,31 +97,31 @@
       <label for="telefonoPapa">Teléfono del Papá:</label>
       <input type="text" id="telefonoPapa" required />
 
-      <label for="dia">Día:</label>
-      <select id="dia" required>
-        <option value="" disabled selected>Seleccione día</option>
-        <option value="Martes 8/7">Martes 8/7</option>
-        <option value="Miércoles 9/7">Miércoles 9/7</option>
-        <option value="Jueves 10/7">Jueves 10/7</option>
-        <option value="Viernes 11/7">Viernes 11/7</option>
-        <option value="Martes 15/7">Martes 15/7</option>
-        <option value="Miércoles 16/7">Miércoles 16/7</option>
-        <option value="Jueves 17/7">Jueves 17/7</option>
-        <option value="Viernes 18/7">Viernes 18/7</option>
-      </select>
+
+      <label>Días:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="dias" value="Martes 8/7"> Martes 8/7</label>
+        <label><input type="checkbox" name="dias" value="Miércoles 9/7"> Miércoles 9/7</label>
+        <label><input type="checkbox" name="dias" value="Jueves 10/7"> Jueves 10/7</label>
+        <label><input type="checkbox" name="dias" value="Viernes 11/7"> Viernes 11/7</label>
+        <label><input type="checkbox" name="dias" value="Martes 15/7"> Martes 15/7</label>
+        <label><input type="checkbox" name="dias" value="Miércoles 16/7"> Miércoles 16/7</label>
+        <label><input type="checkbox" name="dias" value="Jueves 17/7"> Jueves 17/7</label>
+        <label><input type="checkbox" name="dias" value="Viernes 18/7"> Viernes 18/7</label>
+      </div>
 
       <label for="horarioGrupo">Horario (grupo):</label>
       <select id="horarioGrupo" required>
         <option value="" disabled selected>Seleccione horario</option>
-        <option value="1° grupo de 15 a 17">1° grupo de 15 a 17</option>
-        <option value="2° grupo de 17:30 a 19:30">2° grupo de 17:30 a 19:30</option>
+        <option>1° grupo de 15 a 17</option>
+        <option>2° grupo de 17:30 a 19:30</option>
       </select>
 
       <label for="autorizacion">Autoriza uso de fotos:</label>
       <select id="autorizacion" required>
         <option value="" disabled selected>Seleccione</option>
-        <option value="Sí">Sí</option>
-        <option value="No">No</option>
+        <option>Sí</option>
+        <option>No</option>
       </select>
 
       <label for="email">Email de contacto:</label>
@@ -103,41 +131,63 @@
     </form>
   </div>
 
+  <!-- Modal personalizado -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <p>
+        El lugar será reservado, la confirmación será<br/>
+        efectiva una vez realizado el pago.<br/>
+        A la brevedad comunicará nuestra secretaria<br/>
+        para dicha confirmación.<br/>
+        ¡Gracias, Equipo La Yema! ❤️
+      </p>
+      <button id="modalOk">OK</button>
+    </div>
+  </div>
+
   <script>
-    const fieldMap = {
-      dni:             'DNI',
-      apellido:        'Apellido',
-      nombres:         'Nombres',
-      fechaNacimiento: 'Fecha de Nacimiento',
-      edad:            'Edad',
-      domicilio:       'Domicilio',
-      nombreMama:      'Nombre Mamá',
-      telefonoMama:    'Teléfono Mamá',
-      nombrePapa:      'Nombre Papá',
-      telefonoPapa:    'Teléfono Papá',
-      dia:             'Día',
-      horarioGrupo:    'Horario',
-      autorizacion:    'Autoriza uso de fotos',
-      email:           'Email de contacto'
-    };
+    const form = document.getElementById('contactForm');
+    const overlay = document.getElementById('overlay');
+    const modalOk = document.getElementById('modalOk');
 
-    document
-      .getElementById('contactForm')
-      .addEventListener('submit', function(e) {
-        e.preventDefault();
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      overlay.style.display = 'flex';
+    });
 
-        // WhatsApp: +54 9 351 221-6146 → 5493512216146
-        const whatsappNumber = '5493512358540';
+    modalOk.addEventListener('click', () => {
+      overlay.style.display = 'none';
 
-        let text = 'Nueva solicitud Taller Vacaciones Julio 2025:%0A';
-        for (let id in fieldMap) {
-          const val = document.getElementById(id).value.trim();
-          text += `${ fieldMap[id] }: ${ val }%0A`;
-        }
+      const whatsappNumber = '5493512358540';
+      let text = 'Nueva solicitud Taller Vacaciones Julio 2025:%0A';
 
-        const url = `https://api.whatsapp.com/send?phone=${ whatsappNumber }&text=${ text }`;
-        window.open(url, '_blank');
-      });
+      const append = (label, val) => text += `${label}: ${val}%0A`;
+
+      append('DNI', document.getElementById('dni').value);
+      append('Apellido', document.getElementById('apellido').value);
+      append('Nombres', document.getElementById('nombres').value);
+      append('Fecha de Nacimiento', document.getElementById('fechaNacimiento').value);
+      append('Edad', document.getElementById('edad').value);
+      append('Domicilio', document.getElementById('domicilio').value);
+      append('Nombre Mamá', document.getElementById('nombreMama').value);
+      append('Teléfono Mamá', document.getElementById('telefonoMama').value);
+      append('Nombre Papá', document.getElementById('nombrePapa').value);
+      append('Teléfono Papá', document.getElementById('telefonoPapa').value);
+
+      // Recoger varios días
+      const diasChecked = document.querySelectorAll('input[name="dias"]:checked');
+      const dias = Array.from(diasChecked).map(cb => cb.value).join(', ') || 'Sin selección';
+      append('Días', dias);
+
+      append('Horario', document.getElementById('horarioGrupo').value);
+      append('Autoriza uso de fotos', document.getElementById('autorizacion').value);
+      append('Email de contacto', document.getElementById('email').value);
+
+      window.open(
+        `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${text}`,
+        '_blank'
+      );
+    });
   </script>
 </body>
 </html>
