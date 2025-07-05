@@ -30,6 +30,13 @@
       cursor: pointer;
     }
     button:hover { background: #c7760f; }
+    /* Mensaje debajo del select de horario */
+    #groupMsg {
+      display: none;
+      color: #c00;
+      font-size: 12px;
+      margin-top: 4px;
+    }
 
     /* Modal styles */
     .overlay {
@@ -63,41 +70,23 @@
 
   <div class="container">
     <div class="logo">
-      <img src="./LOGO_LA_YEMA .png" alt="Logo Talleres" />
+      <img src="./LOGO_LA_YEMA.png" alt="Logo Talleres" />
     </div>
     <h2>TALLER ESPECIAL DE VACACIONES DE JULIO (de 6 a 10 años)</h2>
     <form id="contactForm">
-      <label for="dni">DNI:</label>
-      <input type="text" id="dni" required />
+      <!-- Campos personales -->
+      <label for="dni">DNI:</label><input type="text" id="dni" required />
+      <label for="apellido">Apellido:</label><input type="text" id="apellido" required />
+      <label for="nombres">Nombres:</label><input type="text" id="nombres" required />
+      <label for="fechaNacimiento">Fecha de Nacimiento:</label><input type="date" id="fechaNacimiento" required />
+      <label for="edad">Edad:</label><input type="number" id="edad" min="1" required />
+      <label for="domicilio">Domicilio:</label><input type="text" id="domicilio" required />
+      <label for="nombreMama">Nombre de la Mamá:</label><input type="text" id="nombreMama" required />
+      <label for="telefonoMama">Teléfono de la Mamá:</label><input type="text" id="telefonoMama" required />
+      <label for="nombrePapa">Nombre del Papá:</label><input type="text" id="nombrePapa" required />
+      <label for="telefonoPapa">Teléfono del Papá:</label><input type="text" id="telefonoPapa" required />
 
-      <label for="apellido">Apellido:</label>
-      <input type="text" id="apellido" required />
-
-      <label for="nombres">Nombres:</label>
-      <input type="text" id="nombres" required />
-
-      <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-      <input type="date" id="fechaNacimiento" required />
-
-      <label for="edad">Edad:</label>
-      <input type="number" id="edad" min="1" required />
-
-      <label for="domicilio">Domicilio:</label>
-      <input type="text" id="domicilio" required />
-
-      <label for="nombreMama">Nombre de la Mamá:</label>
-      <input type="text" id="nombreMama" required />
-
-      <label for="telefonoMama">Teléfono de la Mamá:</label>
-      <input type="text" id="telefonoMama" required />
-
-      <label for="nombrePapa">Nombre del Papá:</label>
-      <input type="text" id="nombrePapa" required />
-
-      <label for="telefonoPapa">Teléfono del Papá:</label>
-      <input type="text" id="telefonoPapa" required />
-
-
+      <!-- Días -->
       <label>Días:</label>
       <div class="checkbox-group">
         <label><input type="checkbox" name="dias" value="Miércoles 9/7"> Miércoles 9/7</label>
@@ -109,36 +98,36 @@
         <label><input type="checkbox" name="dias" value="Viernes 18/7"> Viernes 18/7</label>
       </div>
 
+      <!-- Horario con mensaje -->
       <label for="horarioGrupo">Horario (grupo):</label>
       <select id="horarioGrupo" required>
         <option value="" disabled selected>Seleccione horario</option>
-        <option>1° grupo de 15 a 17</option>
-        <option>2° grupo de 17:30 a 19:30</option>
+        <option value="1° grupo de 15 a 17">1° grupo de 15 a 17</option>
+        <option value="2° grupo de 17:30 a 19:30">2° grupo de 17:30 a 19:30</option>
       </select>
+      <div id="groupMsg">El día 15/7 no tiene más cupo para el Grupo 1.</div>
 
+      <!-- Resto -->
       <label for="autorizacion">Autoriza uso de fotos:</label>
       <select id="autorizacion" required>
         <option value="" disabled selected>Seleccione</option>
         <option>Sí</option>
         <option>No</option>
       </select>
-
-      <label for="email">Email de contacto:</label>
-      <input type="email" id="email" required />
+      <label for="email">Email de contacto:</label><input type="email" id="email" required />
 
       <button type="submit">Enviar Solicitud</button>
     </form>
   </div>
 
-  <!-- Modal personalizado -->
+  <!-- Modal -->
   <div class="overlay" id="overlay">
     <div class="modal">
       <p>
-        El lugar está reservado, la confirmación será<br/>
-        efectiva una vez realizado el pago.<br/>
-        A la brevedad comunicará nuestra secretaria<br/>
-        para dicha confirmación.<br/>
-        ¡Gracias, Equipo La Yema! ❤️
+        ¡Genial! Tu lugar ha quedado reservado.<br/>
+        La confirmación será efectiva una vez realizado el pago.<br/>
+        Nuestra secretaria se comunicará a la brevedad para finalizar tu inscripción.<br/>
+        ¡Gracias por confiar en La Yema! ❤️
       </p>
       <button id="modalOk">OK</button>
     </div>
@@ -148,6 +137,31 @@
     const form = document.getElementById('contactForm');
     const overlay = document.getElementById('overlay');
     const modalOk = document.getElementById('modalOk');
+    const diasChecks = document.querySelectorAll('input[name="dias"]');
+    const horario = document.getElementById('horarioGrupo');
+    const groupMsg = document.getElementById('groupMsg');
+
+    function updateHorarioOptions() {
+      const dia15 = Array.from(diasChecks)
+        .find(cb => cb.value === 'Martes 15/7' && cb.checked);
+      // Deshabilitar o habilitar la primera opción
+      Array.from(horario.options).forEach(opt => {
+        if (opt.value === '1° grupo de 15 a 17') {
+          opt.disabled = !!dia15;
+        }
+      });
+      // Si estaba seleccionada opción deshabilitada, cambiar a segunda
+      if (dia15 && horario.value === '1° grupo de 15 a 17') {
+        horario.value = '2° grupo de 17:30 a 19:30';
+      }
+      // Mostrar u ocultar mensaje
+      groupMsg.style.display = dia15 ? 'block' : 'none';
+    }
+
+    // Escuchar cambios en días
+    diasChecks.forEach(cb => cb.addEventListener('change', updateHorarioOptions));
+    // Inicializar al cargar
+    updateHorarioOptions();
 
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -156,7 +170,6 @@
 
     modalOk.addEventListener('click', () => {
       overlay.style.display = 'none';
-
       const whatsappNumber = '5493512358540';
       let text = 'Nueva solicitud Taller Vacaciones Julio 2025:%0A';
 
@@ -173,17 +186,18 @@
       append('Nombre Papá', document.getElementById('nombrePapa').value);
       append('Teléfono Papá', document.getElementById('telefonoPapa').value);
 
-      // Recoger varios días
-      const diasChecked = document.querySelectorAll('input[name="dias"]:checked');
-      const dias = Array.from(diasChecked).map(cb => cb.value).join(', ') || 'Sin selección';
-      append('Días', dias);
+      const diasSel = Array.from(diasChecks)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value)
+        .join(', ') || 'Sin selección';
+      append('Días', diasSel);
 
-      append('Horario', document.getElementById('horarioGrupo').value);
+      append('Horario', horario.value);
       append('Autoriza uso de fotos', document.getElementById('autorizacion').value);
       append('Email de contacto', document.getElementById('email').value);
 
       window.open(
-        `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${text}`,
+        `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(text)}`,
         '_blank'
       );
     });
