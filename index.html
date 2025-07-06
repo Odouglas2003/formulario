@@ -5,194 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro Taller Especial de Vacaciones de Julio</title>
     <style>
-      * {
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-      }
+      * { box-sizing: border-box; font-family: Arial, sans-serif; }
       body {
-        background: #f9f9f9;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
+        background: #f9f9f9; margin: 0; padding: 20px;
+        display: flex; justify-content: center;
       }
       .container {
-        max-width: 400px;
-        width: 100%;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px; width: 100%; background: #fff;
+        padding: 20px; border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
-      .logo {
-        text-align: center;
-        margin-bottom: 10px;
-      }
-      .logo img {
-        max-width: 120px;
-      }
+      .logo { text-align: center; margin-bottom: 10px; }
+      .logo img { max-width: 120px; }
       h2 {
-        text-align: center;
-        color: #e58b12;
-        margin-bottom: 20px;
-        font-size: 18px;
+        text-align: center; color: #e58b12;
+        margin-bottom: 20px; font-size: 18px;
       }
-      label {
-        display: block;
-        margin-top: 12px;
-        font-size: 14px;
-        color: #333;
-      }
+label {
+  display: block;
+  margin-top: 12px;
+}
+label + input,
+label + select {
+  display: block;
+  margin-top: 4px;
+}
       .checkbox-group label {
-        display: block;
-        margin-top: 4px;
+        display: block; margin-top: 4px;
+        
       }
-      input[type="text"],
-      input[type="date"],
-      input[type="number"],
-      input[type="email"],
+
+      input{
+         width: 100%;padding: 8px; margin-top: 4px;
+        border: 1px solid #ccc; border-radius: 4px;
+        font-size: 14px;
+      }
+            .dia{
+              width: 10%;
+        padding: 8px; margin-top: 4px;
+        border: 1px solid #ccc; border-radius: 4px;
+        font-size: 14px;
+        
+      }
       select {
-        width: 100%;
-        padding: 8px;
-        margin-top: 4px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        width: 100%; padding: 8px; margin-top: 4px;
+        border: 1px solid #ccc; border-radius: 4px;
         font-size: 14px;
       }
       button {
-        width: 100%;
-        padding: 12px;
-        background: #e58b12;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        margin-top: 20px;
-        cursor: pointer;
+        width: 100%; padding: 12px; margin-top: 20px;
+        background: #e58b12; color: #fff;
+        border: none; border-radius: 4px;
+        font-size: 16px; cursor: pointer;
       }
-      button:hover {
-        background: #c7760f;
-      }
-      /* Mensaje debajo del select de horario */
-      #groupMsg {
-        display: none;
-        color: #c00;
-        font-size: 12px;
-        margin-top: 4px;
-      }
+      button:hover { background: #c7760f; }
 
-      /* Modal styles */
       .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
-        justify-content: center;
-        align-items: center;
+        position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: none; justify-content: center; align-items: center;
       }
       .modal {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        max-width: 320px;
-        text-align: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        background: #fff; padding: 20px; border-radius: 8px;
+        max-width: 320px; text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       }
       .modal p {
-        margin: 0;
-        font-size: 20px;
-        color: #333;
-        line-height: 1.4;
+        margin: 0; font-size: 20px; color: #333; line-height: 1.4;
       }
       .modal button {
-        margin-top: 20px;
-        padding: 10px 24px;
-        font-size: 16px;
-        background: #e58b12;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
+        margin-top: 20px; padding: 10px 24px;
+        font-size: 16px; background: #e58b12;
+        color: #fff; border: none; border-radius: 4px;
         cursor: pointer;
       }
-      .modal button:hover {
-        background: #c7760f;
+      .modal button:hover { background: #c7760f; }
+
+      .dia-horario-container {
+        margin-top: 10px; padding: 10px;
+        background: #f5f5f5; border-radius: 4px;
       }
+      .dia-horario-container label { margin-top: 0; }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="logo">
-        <img src="./LOGO_LA_YEMA .png" alt="Logo Talleres" />
+        <img src="./LOGO_LA_YEMA.png" alt="Logo Talleres" />
       </div>
       <h2>TALLER ESPECIAL DE VACACIONES DE JULIO (de 6 a 10 años)</h2>
       <form id="contactForm">
-        <!-- Campos personales -->
+        <!-- Datos personales -->
         <label for="dni">DNI:</label><input type="text" id="dni" required />
-        <label for="apellido">Apellido:</label
-        ><input type="text" id="apellido" required />
-        <label for="nombres">Nombres:</label
-        ><input type="text" id="nombres" required />
-        <label for="fechaNacimiento">Fecha de Nacimiento:</label
-        ><input type="date" id="fechaNacimiento" required />
-        <label for="edad">Edad:</label
-        ><input type="number" id="edad" min="1" required />
-        <label for="domicilio">Domicilio:</label
-        ><input type="text" id="domicilio" required />
-        <label for="nombreMama">Nombre de la Mamá:</label
-        ><input type="text" id="nombreMama" required />
-        <label for="telefonoMama">Teléfono de la Mamá:</label
-        ><input type="text" id="telefonoMama" required />
-        <label for="nombrePapa">Nombre del Papá:</label
-        ><input type="text" id="nombrePapa" required />
-        <label for="telefonoPapa">Teléfono del Papá:</label
-        ><input type="text" id="telefonoPapa" required />
+        <label for="apellido">Apellido:</label><input type="text" id="apellido" required />
+        <label for="nombres">Nombres:</label><input type="text" id="nombres" required />
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label><input type="date" id="fechaNacimiento" required />
+        <label for="edad">Edad:</label><input type="number" id="edad" min="1" required />
+        <label for="domicilio">Domicilio:</label><input type="text" id="domicilio" required />
+        <label for="nombreMama">Nombre de la Mamá:</label><input type="text" id="nombreMama" required />
+        <label for="telefonoMama">Teléfono de la Mamá:</label><input type="text" id="telefonoMama" required />
+        <label for="nombrePapa">Nombre del Papá:</label><input type="text" id="nombrePapa" required />
+        <label for="telefonoPapa">Teléfono del Papá:</label><input type="text" id="telefonoPapa" required />
 
         <!-- Días -->
         <label>Días:</label>
         <div class="checkbox-group">
-          <label
-            ><input type="checkbox" name="dias" value="Miércoles 9/7" />
-            Miércoles 9/7</label
-          >
-          <label
-            ><input type="checkbox" name="dias" value="Jueves 10/7" /> Jueves
-            10/7</label
-          >
-          <label
-            ><input type="checkbox" name="dias" value="Viernes 11/7" /> Viernes
-            11/7</label
-          >
-          <label
-            ><input type="checkbox" name="dias" value="Martes 15/7" /> Martes
-            15/7</label
-          >
-          <label
-            ><input type="checkbox" name="dias" value="Miércoles 16/7" />
-            Miércoles 16/7</label
-          >
-          <label
-            ><input type="checkbox" name="dias" value="Jueves 17/7" /> Jueves
-            17/7</label
-          >
-          <label
-            ><input type="checkbox" name="dias" value="Viernes 18/7" /> Viernes
-            18/7</label
-          >
+          <label><input class="dia" type="checkbox" name="dias" value="Martes 8/7" /> Martes 8/7</label>
+          <label><input class="dia" type="checkbox" name="dias" value="Miércoles 9/7" /> Miércoles 9/7</label>
+          <label><input class="dia" type="checkbox" name="dias" value="Jueves 10/7" /> Jueves 10/7</label>
+          <label><input class="dia" type="checkbox" name="dias" value="Viernes 11/7" /> Viernes 11/7</label>
+          <label><input class="dia" type="checkbox" name="dias" value="Martes 15/7" /> Martes 15/7</label>
+          <label><input class="dia" type="checkbox" name="dias" value="Miércoles 16/7" /> Miércoles 16/7</label>
+          <label><input class="dia" type="checkbox" name="dias" value="Jueves 17/7" /> Jueves 17/7</label>
+          <label><input class="dia" type="checkbox" name="dias" value="Viernes 18/7" /> Viernes 18/7</label>
         </div>
 
-        <!-- Horario con mensaje -->
-        <label for="horarioGrupo">Horario (grupo):</label>
-        <select id="horarioGrupo" required>
-          <option value="" disabled selected>Seleccione horario</option>
-          <option value="1° grupo de 15 a 17">1° grupo de 15 a 17</option>
-          <option value="2° grupo de 17:30 a 19:30">
-            2° grupo de 17:30 a 19:30
-          </option>
-        </select>
-        <div id="groupMsg">El día 15/7 no tiene más cupo para el Grupo 1.</div>
+        <!-- Bloques día + select de horario -->
+        <div id="horariosPorDia"></div>
 
         <!-- Resto -->
         <label for="autorizacion">Autoriza uso de fotos:</label>
@@ -201,8 +131,7 @@
           <option>Sí</option>
           <option>No</option>
         </select>
-        <label for="email">Email de contacto:</label
-        ><input type="email" id="email" required />
+        <label for="email">Email de contacto:</label><input type="email" id="email" required />
 
         <button type="submit">Enviar Solicitud</button>
       </form>
@@ -214,8 +143,7 @@
         <p>
           ¡Genial! Tu lugar ha quedado reservado.<br />
           La confirmación será efectiva una vez realizado el pago.<br />
-          Nuestra secretaria se comunicará a la brevedad para finalizar tu
-          inscripción.<br />
+          Nuestra secretaria se comunicará a la brevedad para finalizar tu inscripción.<br />
           ¡Gracias por confiar en La Yema! ❤️
         </p>
         <button id="modalOk">OK</button>
@@ -227,27 +155,45 @@
       const overlay = document.getElementById("overlay");
       const modalOk = document.getElementById("modalOk");
       const diasChecks = document.querySelectorAll('input[name="dias"]');
-      const horario = document.getElementById("horarioGrupo");
-      const groupMsg = document.getElementById("groupMsg");
+      const horariosPorDiaDiv = document.getElementById("horariosPorDia");
 
-      // Actualiza opciones de horario según días
-      function updateHorarioOptions() {
-        const dia15 = Array.from(diasChecks).some(
-          (cb) => cb.value === "Martes 15/7" && cb.checked
-        );
-        horario.querySelectorAll("option").forEach((opt) => {
-          if (opt.value === "1° grupo de 15 a 17") opt.disabled = dia15;
+      function updateHorariosPorDia() {
+        const selectedDias = Array.from(diasChecks)
+          .filter(cb => cb.checked)
+          .map(cb => cb.value);
+
+        if (!selectedDias.length) {
+          horariosPorDiaDiv.innerHTML = "";
+          return;
+        }
+
+        let html = "";
+        selectedDias.forEach(dia => {
+          const id = dia.replace(/[^a-zA-Z0-9]/g, "_");
+          const disableGroup1 = dia === "Martes 15/7";
+          const disableGroup2 = dia === "Martes 8/7";
+          html += `
+            <div class="dia-horario-container">
+              <label for="horario_${id}">${dia} - Seleccioná horario:</label>
+              <select id="horario_${id}" required>
+                <option value="" disabled selected>Seleccione...</option>
+                <option value="1° grupo de 15 a 17" ${disableGroup1 ? "disabled" : ""}>
+                  1° grupo de 15 a 17
+                </option>
+                <option value="2° grupo de 17:30 a 19:30" ${disableGroup2 ? "disabled" : ""}>
+                  2° grupo de 17:30 a 19:30
+                </option>
+              </select>
+            </div>`;
         });
-        if (dia15 && horario.value === "1° grupo de 15 a 17")
-          horario.value = "2° grupo de 17:30 a 19:30";
-        groupMsg.style.display = dia15 ? "block" : "none";
-      }
-      diasChecks.forEach((cb) =>
-        cb.addEventListener("change", updateHorarioOptions)
-      );
-      updateHorarioOptions();
 
-      form.addEventListener("submit", (e) => {
+        horariosPorDiaDiv.innerHTML = html;
+      }
+
+      diasChecks.forEach(cb => cb.addEventListener("change", updateHorariosPorDia));
+      updateHorariosPorDia();
+
+      form.addEventListener("submit", e => {
         e.preventDefault();
         overlay.style.display = "flex";
       });
@@ -256,7 +202,6 @@
         overlay.style.display = "none";
         const whatsappNumber = "5493512358540";
 
-        // Construyo el texto con saltos de línea \n
         let text = `Nueva solicitud Taller Vacaciones Julio 2025:
 DNI: ${document.getElementById("dni").value}
 Apellido: ${document.getElementById("apellido").value}
@@ -268,22 +213,33 @@ Nombre Mamá: ${document.getElementById("nombreMama").value}
 Teléfono Mamá: ${document.getElementById("telefonoMama").value}
 Nombre Papá: ${document.getElementById("nombrePapa").value}
 Teléfono Papá: ${document.getElementById("telefonoPapa").value}
-Días: ${
-          Array.from(diasChecks)
-            .filter((cb) => cb.checked)
-            .map((cb) => cb.value)
-            .join(", ") || "Sin selección"
+`;
+
+        const selectedDias = Array.from(diasChecks).filter(cb => cb.checked);
+        if (selectedDias.length) {
+          text += "Horarios por día:\n";
+          selectedDias.forEach(cb => {
+            const dia = cb.value;
+            const id = dia.replace(/[^a-zA-Z0-9]/g, "_");
+            const sel = document.getElementById(`horario_${id}`);
+            const val = sel && sel.value ? sel.value : "Sin horario";
+            text += `- ${dia}: ${val}\n`;
+          });
+        } else {
+          text += "Días: Sin selección\n";
         }
-Horario: ${horario.value}
-Autoriza uso de fotos: ${document.getElementById("autorizacion").value}
+
+        text += `Autoriza uso de fotos: ${document.getElementById("autorizacion").value}
 Email de contacto: ${document.getElementById("email").value}`;
 
-        // Sólo aquí lo codifico para la URL
-        const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(
-          text
-        )}`;
+        const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(text)}`;
         window.open(url, "_blank");
       });
     </script>
-  </body>
+</body>
 </html>
+<script>
+      // Inicializar el overlay como oculto
+      document.getElementById("overlay").style.display = "none";
+    </script>
+  </body>
