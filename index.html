@@ -111,7 +111,6 @@ label + select {
         <!-- Días -->
         <label>Días:</label>
         <div class="checkbox-group">
-          <label><input class="dia" type="checkbox" name="dias" value="Martes 8/7" /> Martes 8/7</label>
           <label><input class="dia" type="checkbox" name="dias" value="Miércoles 9/7" /> Miércoles 9/7</label>
           <label><input class="dia" type="checkbox" name="dias" value="Jueves 10/7" /> Jueves 10/7</label>
           <label><input class="dia" type="checkbox" name="dias" value="Viernes 11/7" /> Viernes 11/7</label>
@@ -170,8 +169,8 @@ label + select {
         let html = "";
         selectedDias.forEach(dia => {
           const id = dia.replace(/[^a-zA-Z0-9]/g, "_");
-          const disableGroup1 = dia === "Martes 15/7" || dia === "Jueves 10/7";
-          const disableGroup2 = dia === "Martes 8/7";
+          const disableGroup1 = dia === "Martes 15/7" || dia === "Jueves 10/7" || dia === "Miércoles 9/7";
+          const disableGroup2 = dia === "";
           html += `
             <div class="dia-horario-container">
               <label for="horario_${id}">${dia} - Seleccioná horario:</label>
