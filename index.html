@@ -165,8 +165,8 @@ label + select {
         let html = "";
         selectedDias.forEach(dia => {
           const id = dia.replace(/[^a-zA-Z0-9]/g, "_");
-          const disableGroup1 = dia === "Miércoles 16/7" || dia === "" || dia === "";
-          const disableGroup2 = dia === "";
+          const disableGroup1 = dia === "" || dia === "" || dia === "";
+          const disableGroup2 = dia === "Miércoles 16/7";
           html += `
             <div class="dia-horario-container">
               <label for="horario_${id}">${dia} - Seleccioná horario:</label>
